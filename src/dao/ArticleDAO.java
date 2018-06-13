@@ -11,6 +11,7 @@ import pojo.Article;
 public class ArticleDAO extends DAOmanager<Article> {
 	private static ArticleDAO art = new ArticleDAO();
 	private ArrayList<Article> list = new ArrayList<Article>();
+	private ArrayList<Article> recherche = new ArrayList<Article>();
 
 	public static ArticleDAO singleton() {
 		return art;
@@ -19,7 +20,24 @@ public class ArticleDAO extends DAOmanager<Article> {
 	@Override
 	public StringBuffer find(StringBuffer strb) {
 		// recherche un article dans la base
-		return null;
+		if (recherche.isEmpty()) {
+
+			StringBuffer out = new StringBuffer();
+			int ctp = 0;
+			try {
+				ResultSet result = this.connect
+						.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE)
+						.executeQuery("SELECT * FROM cms.article");
+			} catch (SQLException e) {
+				System.out.println("error sql find");
+			}
+			out.append(ctp);
+			return out;
+		} else {
+			recherche.clear();
+			find(strb);
+			return null;
+		}
 	}
 
 	@Override
@@ -28,7 +46,7 @@ public class ArticleDAO extends DAOmanager<Article> {
 		try {
 			ResultSet result = this.connect
 					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE)
-					.executeQuery("SELECT titre FROM article where titre = '" + obj.get_titre() + "'");
+					.executeQuery("SELECT titre FROM cms.article where titre = '" + obj.get_titre() + "'");
 			if (result.next()) {
 				System.out.println("titre existant");
 				return null;
@@ -62,13 +80,13 @@ public class ArticleDAO extends DAOmanager<Article> {
 	@Override
 	public void delete(Article obj) {
 		// rend invisible ou non l'article en bdd
-		
+
 	}
 
 	@Override
 	public ArrayList<Article> importation() {
 		// import en list les articles en bdd
-		return null;
+		return list;
 	}
 
 }
