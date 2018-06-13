@@ -6,5 +6,8 @@ public class Team {
 	private Role _role;
 	private String _nom, _pseudo, _mail;
 	
-	
+	public String toString() {
+		return _pseudo;
+		
+	}
 }

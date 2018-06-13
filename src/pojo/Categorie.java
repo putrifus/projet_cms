@@ -16,4 +16,8 @@ public class Categorie {
 	public void set_ordre(int _ordre) {
 		this._ordre = _ordre;
 	}
+	
+	public String toString() {
+		return _titre;
+	}
 }

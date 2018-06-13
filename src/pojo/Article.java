@@ -8,8 +8,9 @@ public class Article {
 	private Categorie _cat;
 	private boolean _visible, _comm;
 	private LocalDateTime _date;
-	
-	public Article() {
+
+	public Article(String str) {
+		this._titre = str;
 		this._visible = false;
 		this._comm = false;
 	}
@@ -77,6 +78,5 @@ public class Article {
 	public void set_date(LocalDateTime _date) {
 		this._date = _date;
 	}
-	
-	
+
 }

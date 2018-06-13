@@ -11,7 +11,7 @@ public abstract class DAOmanager<T> {
 	
 	public abstract StringBuffer find(StringBuffer strb);
 
-	public abstract T create();
+	public abstract T create(T obj);
 
 	public abstract T update(T obj);
 
