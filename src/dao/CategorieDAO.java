@@ -5,8 +5,16 @@ import java.util.ArrayList;
 import bdd.DAOmanager;
 import pojo.Categorie;
 
-public class CategoieDAO extends DAOmanager<Categorie>{
-
+public class CategorieDAO extends DAOmanager<Categorie>{
+	private static CategorieDAO cat = new CategorieDAO();
+	
+	private CategorieDAO() {
+		
+	}
+	public static CategorieDAO singleton() {
+		return cat;
+	}
+	
 	@Override
 	public StringBuffer find(StringBuffer strb) {
 		// TODO Auto-generated method stub

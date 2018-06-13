@@ -9,10 +9,12 @@ public class Article {
 	private boolean _visible, _comm;
 	private LocalDateTime _date;
 
-	public Article(String str) {
+	public Article(String str, Team t, Categorie c) {
 		this._titre = str;
 		this._visible = false;
 		this._comm = false;
+		this._writer = t;
+		this._cat = c;
 	}
 
 	public String get_titre() {
