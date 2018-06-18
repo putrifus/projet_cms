@@ -19,7 +19,8 @@ public class Article {
 	}
 
 	// constructeur de recherche et l'import
-	public Article(String str, String resum, String contenu, Team t, Categorie c, boolean b, boolean bb) {
+	public Article(String str, String resum, String contenu, Team t, Categorie c, boolean b, boolean bb,
+			LocalDateTime date) {
 		this._titre = str;
 		this._resume = resum;
 		this._contenu = contenu;
@@ -27,6 +28,7 @@ public class Article {
 		this._comm = bb;
 		this._writer = t;
 		this._cat = c;
+		this._date = date;
 	}
 
 	public String get_titre() {

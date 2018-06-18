@@ -42,7 +42,7 @@ public class ArticleDAO extends DAOmanager<Article> {
 				ctp++;
 				Article resultat = new Article(result.getString(1), result.getString(2), result.getString(3),
 						new Team(result.getString(5)), new Categorie(result.getString(6)), result.getBoolean(7),
-						result.getBoolean(8));
+						result.getBoolean(8), result.getTimestamp(4).toLocalDateTime());
 				recherche.add(resultat);
 			}
 
@@ -79,8 +79,6 @@ public class ArticleDAO extends DAOmanager<Article> {
 				prepare.setBoolean(7, obj.is_visible());
 				prepare.setBoolean(8, obj.is_comm());
 				prepare.executeUpdate();
-
-				list.add(obj);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -90,7 +88,7 @@ public class ArticleDAO extends DAOmanager<Article> {
 
 	@Override
 	public Article update(Article obj) {
-		// rend commentable/visible ou non un article en bdd
+		// rend commentable ou non un article en bdd
 		try {
 			ResultSet result = this.connect.createStatement()
 					.executeQuery("SELECT titre FROM cms.article where titre = '" + obj.get_titre() + "'");
@@ -99,9 +97,8 @@ public class ArticleDAO extends DAOmanager<Article> {
 				return null;
 			} else {
 				PreparedStatement sm = this.connect
-						.prepareStatement("UPDATE cms.article SET visible = ?, commentaire = ?");
-				sm.setBoolean(1, obj.is_visible());
-				sm.setBoolean(2, obj.is_comm());
+						.prepareStatement("UPDATE cms.article SET commentaire = ?");
+				sm.setBoolean(1, obj.is_comm());
 				sm.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -131,7 +128,7 @@ public class ArticleDAO extends DAOmanager<Article> {
 			while (result.next()) {
 				Article resultat = new Article(result.getString(1), result.getString(2), result.getString(3),
 						new Team(result.getString(5)), new Categorie(result.getString(6)), result.getBoolean(7),
-						result.getBoolean(8));
+						result.getBoolean(8), result.getTimestamp(4).toLocalDateTime());
 				list.add(resultat);
 			}
 
