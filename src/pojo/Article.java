@@ -9,10 +9,22 @@ public class Article {
 	private boolean _visible, _comm;
 	private LocalDateTime _date;
 
+	// constructeur pour la création d'un nouvel article
 	public Article(String str, Team t, Categorie c) {
 		this._titre = str;
 		this._visible = false;
 		this._comm = false;
+		this._writer = t;
+		this._cat = c;
+	}
+
+	// constructeur de recherche et l'import
+	public Article(String str, String resum, String contenu, Team t, Categorie c, boolean b, boolean bb) {
+		this._titre = str;
+		this._resume = resum;
+		this._contenu = contenu;
+		this._visible = b;
+		this._comm = bb;
 		this._writer = t;
 		this._cat = c;
 	}
@@ -79,6 +91,12 @@ public class Article {
 
 	public void set_date(LocalDateTime _date) {
 		this._date = _date;
+	}
+
+	@Override
+	public String toString() {
+		return "Article [_titre=" + _titre + ", _resume=" + _resume + ", _contenu=" + _contenu + ", _writer=" + _writer
+				+ ", _cat=" + _cat + ", _date=" + _date + "]";
 	}
 
 }

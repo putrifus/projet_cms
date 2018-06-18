@@ -9,6 +9,10 @@ public class Categorie {
 		this._titre = string;
 	}
 
+	public Categorie(String string) {
+		this._titre = string;
+	}
+
 	public String get_titre() {
 		return _titre;
 	}

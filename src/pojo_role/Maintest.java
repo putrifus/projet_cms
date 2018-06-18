@@ -1,6 +1,7 @@
 package pojo_role;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import dao.ArticleDAO;
 import pojo.Article;
@@ -15,8 +16,12 @@ public class Maintest {
 		// Categorie cat = new Categorie(1, "cattest");
 		// System.out.println();
 		// Article a = new Article("le titre a test", toto, cat);
-		// ArticleDAO.singleton().create(a);
-		
+		 System.out.println("nb de résultats : " + ArticleDAO.singleton().find(new
+		 StringBuffer("hello")));
+		 List li = ArticleDAO.singleton().get_recherche();
+		 for(int i =0; i< li.size(); i++) {
+		 System.out.println(li.get(i).toString());
+		 }
 	}
 
 }
