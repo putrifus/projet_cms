@@ -6,9 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import bdd.DAOmanager;
-import pojo.Article;
 import pojo.Categorie;
-import pojo.Team;
 
 public class CategorieDAO extends DAOmanager<Categorie> {
 	private static CategorieDAO cat = new CategorieDAO();
@@ -16,7 +14,6 @@ public class CategorieDAO extends DAOmanager<Categorie> {
 	private ArrayList<Categorie> recherche = new ArrayList<Categorie>();
 
 	private CategorieDAO() {
-
 	}
 
 	public static CategorieDAO singleton() {
@@ -35,7 +32,7 @@ public class CategorieDAO extends DAOmanager<Categorie> {
 		try {
 			ResultSet result = this.connect
 					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE)
-					.executeQuery("SELECT * FROM cms.categorie where (titre LIKE '%" + strb + "%' ORDER BY ordre ASC");
+					.executeQuery("SELECT * FROM cms.categorie where titre LIKE '%" + strb + "%' ORDER BY ordre ASC");
 
 			while (result.next()) {
 				ctp++;
