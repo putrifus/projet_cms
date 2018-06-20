@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 13 juin 2018 à 14:18
+-- Généré le :  mer. 20 juin 2018 à 09:44
 -- Version du serveur :  5.7.19-log
 -- Version de PHP :  7.2.6
 
@@ -43,6 +43,14 @@ CREATE TABLE IF NOT EXISTS `article` (
   KEY `categorie_idx` (`categorie`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+--
+-- Déchargement des données de la table `article`
+--
+
+INSERT INTO `article` (`titre`, `resume`, `contenu`, `date`, `auteur`, `categorie`, `visible`, `commentaire`) VALUES
+('hello world', 'affiche un hello world en java', 'voici un hello world en java les noobs : <BR>public static void hellolesnoobs <BR>{System.out.println(\"hello\");<BR>}', '2018-06-18 06:35:19', 'bobby', 'code source', 0, 0),
+('un autre article plus solide', NULL, NULL, '2018-06-18 13:06:48', 'bobby', 'code source', 0, 0);
+
 -- --------------------------------------------------------
 
 --
@@ -54,7 +62,8 @@ CREATE TABLE IF NOT EXISTS `cat` (
   `titre` varchar(255) NOT NULL,
   `ordre` int(11) NOT NULL,
   PRIMARY KEY (`titre`),
-  UNIQUE KEY `titre_UNIQUE` (`titre`)
+  UNIQUE KEY `titre_UNIQUE` (`titre`),
+  UNIQUE KEY `ordre_UNIQUE` (`titre`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -62,7 +71,8 @@ CREATE TABLE IF NOT EXISTS `cat` (
 --
 
 INSERT INTO `cat` (`titre`, `ordre`) VALUES
-('cattest', 1);
+('cattest', 2),
+('code source', 1);
 
 -- --------------------------------------------------------
 
@@ -94,6 +104,13 @@ CREATE TABLE IF NOT EXISTS `param` (
   `theme` varchar(45) NOT NULL,
   PRIMARY KEY (`nom`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `param`
+--
+
+INSERT INTO `param` (`nom`, `description`, `theme`) VALUES
+('le blog de bob', 'bob poste ses fameux codes sources', 'bobtheme');
 
 -- --------------------------------------------------------
 
@@ -136,6 +153,13 @@ CREATE TABLE IF NOT EXISTS `team` (
   KEY `roles_idx` (`role`),
   KEY `pseudo` (`pseudo`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `team`
+--
+
+INSERT INTO `team` (`nom`, `pseudo`, `mail`, `role`) VALUES
+('bob', 'bobby', 'bob@mail.com', 1);
 
 -- --------------------------------------------------------
 
