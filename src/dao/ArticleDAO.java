@@ -29,7 +29,6 @@ public class ArticleDAO extends DAOmanager<Article> {
 		if (!(recherche.isEmpty())) {
 			recherche.clear();
 		}
-
 		StringBuffer out = new StringBuffer();
 		int ctp = 0;
 
@@ -38,11 +37,13 @@ public class ArticleDAO extends DAOmanager<Article> {
 					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE)
 					.executeQuery("SELECT * FROM cms.article where (titre || resume || contenu LIKE '%" + strb
 							+ "%' || auteur = '" + strb + "') ORDER BY date DESC");
+
 			while (result.next()) {
 				ctp++;
 				Article resultat = new Article(result.getString(1), result.getString(2), result.getString(3),
 						new Team(result.getString(5)), new Categorie(result.getString(6)), result.getBoolean(7),
 						result.getBoolean(8), result.getTimestamp(4).toLocalDateTime());
+
 				recherche.add(resultat);
 			}
 
@@ -64,12 +65,14 @@ public class ArticleDAO extends DAOmanager<Article> {
 			ResultSet result = this.connect
 					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE)
 					.executeQuery("SELECT titre FROM cms.article where titre = '" + obj.get_titre() + "'");
+
 			if (result.next()) {
 				System.out.println("titre existant");
 				return null;
 			} else {
 				PreparedStatement prepare = this.connect
 						.prepareStatement("INSERT INTO cms.article VALUES(?, ?, ?, ?, ?, ?, ?, ?)");
+
 				prepare.setString(1, obj.get_titre());
 				prepare.setString(2, obj.get_resume());
 				prepare.setString(3, obj.get_contenu());
@@ -91,14 +94,20 @@ public class ArticleDAO extends DAOmanager<Article> {
 		// rend commentable ou non un article en bdd
 		try {
 			ResultSet result = this.connect.createStatement()
-					.executeQuery("SELECT titre FROM cms.article where titre = '" + obj.get_titre() + "'");
+					.executeQuery("SELECT titre, commentaire FROM cms.article where titre = '" + obj.get_titre() + "'");
+
 			if (!(result.next())) {
 				System.out.println("erreur article");
 				return null;
 			} else {
-				PreparedStatement sm = this.connect
-						.prepareStatement("UPDATE cms.article SET commentaire = ?");
-				sm.setBoolean(1, obj.is_comm());
+				PreparedStatement sm = this.connect.prepareStatement(
+						"UPDATE cms.article SET commentaire = ? where titre = '" + obj.get_titre() + "'");
+
+				if (result.getBoolean(2) == true) {
+					sm.setBoolean(1, false);
+				} else if (result.getBoolean(2) == false) {
+					sm.setBoolean(1, true);
+				}
 				sm.executeUpdate();
 			}
 		} catch (SQLException e) {
@@ -111,11 +120,38 @@ public class ArticleDAO extends DAOmanager<Article> {
 	@Override
 	public void delete(Article obj) {
 		// TODO rend invisible ou non l'article en bdd
+		try {
+			ResultSet result = this.connect.createStatement()
+					.executeQuery("SELECT titre, visible FROM cms.article where titre = '" + obj.get_titre() + "'");
 
+			if (!(result.next())) {
+				System.out.println("erreur article");
+			} else {
+				PreparedStatement sm = this.connect
+						.prepareStatement("UPDATE cms.article SET visible = ? where titre = '" + obj.get_titre() + "'");
+
+				if (result.getBoolean(2) == true) {
+					sm.setBoolean(1, false);
+				} else if (result.getBoolean(2) == false) {
+					sm.setBoolean(1, true);
+				}
+				sm.executeUpdate();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public void force_delete(Article obj) {
 		// efface un article de la bdd définitivement!
+		try {
+			PreparedStatement del = this.connect
+					.prepareStatement("DELETE FROM cms.article WHERE titre = '" + obj.get_titre() + "'");
+
+			del.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -125,17 +161,16 @@ public class ArticleDAO extends DAOmanager<Article> {
 			ResultSet result = this.connect
 					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE)
 					.executeQuery("SELECT * FROM cms.article ORDER BY date DESC");
+
 			while (result.next()) {
 				Article resultat = new Article(result.getString(1), result.getString(2), result.getString(3),
 						new Team(result.getString(5)), new Categorie(result.getString(6)), result.getBoolean(7),
 						result.getBoolean(8), result.getTimestamp(4).toLocalDateTime());
 				list.add(resultat);
 			}
-
 		} catch (SQLException e) {
 			System.out.println("error sql import");
 		}
 		return list;
 	}
-
 }

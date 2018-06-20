@@ -1,5 +1,6 @@
 package pojo_role;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,8 +16,7 @@ public class Maintest {
 		// Team bob = new Team(new Admin(), "bob", "bobby", "bob@mail.com");
 		// Categorie cat = new Categorie(1, "code source");
 		// System.out.println();
-		// Article a = new Article("encore un article dans code source et moins vieux",
-		// bob, cat);
+		// Article a = new Article("encore un article dans code source et moins vieux");
 		// ArticleDAO.singleton().create(a);
 		//
 		// System.out.println("nb de résultats : " + ArticleDAO.singleton().find(new
@@ -25,10 +25,11 @@ public class Maintest {
 		// for(int i =0; i< li.size(); i++) {
 		// System.out.println(li.get(i).toString());
 		// }
-		 List lu = ArticleDAO.singleton().importation();
-		 for(int i =0; i< lu.size(); i++) {
-			 System.out.println(lu.get(i).toString());
-			 }
+		// List lu = ArticleDAO.singleton().importation();
+		// for(int i =0; i< lu.size(); i++) {
+		// System.out.println(lu.get(i).toString());
+		// }
+		// ArticleDAO.singleton().delete(a);
 	}
 
 }

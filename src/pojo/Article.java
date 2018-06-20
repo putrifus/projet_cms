@@ -17,6 +17,11 @@ public class Article {
 		this._writer = t;
 		this._cat = c;
 	}
+	
+	//simplifié pour traitement bdd
+	public Article(String str) {
+		this._titre = str;
+	}
 
 	// constructeur de recherche et l'import
 	public Article(String str, String resum, String contenu, Team t, Categorie c, boolean b, boolean bb,
