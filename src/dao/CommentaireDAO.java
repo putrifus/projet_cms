@@ -33,7 +33,12 @@ public class CommentaireDAO extends DAOmanager<Commentaire> {
 			ResultSet result = this.connect
 					.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE)
 					.executeQuery("SELECT * FROM cms.commentaire where article = '" + strb + "' ORDER BY date DESC");
-
+			
+			if (!(result.next())) {
+				System.out.println("pas de comm ici");
+				return null;
+			}
+			
 			while (result.next()) {
 				ctp++;
 				Commentaire com = new Commentaire();
