@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  mer. 20 juin 2018 à 09:44
+-- Généré le :  lun. 25 juin 2018 à 09:01
 -- Version du serveur :  5.7.19-log
 -- Version de PHP :  7.2.6
 
@@ -82,11 +82,13 @@ INSERT INTO `cat` (`titre`, `ordre`) VALUES
 
 DROP TABLE IF EXISTS `commentaire`;
 CREATE TABLE IF NOT EXISTS `commentaire` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `contenu` text NOT NULL,
   `visiteur` varchar(55) NOT NULL,
   `article` varchar(155) NOT NULL,
   `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `mod` tinyint(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
   KEY `visit_idx` (`visiteur`),
   KEY `article_idx` (`article`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -120,7 +122,7 @@ INSERT INTO `param` (`nom`, `description`, `theme`) VALUES
 
 DROP TABLE IF EXISTS `role`;
 CREATE TABLE IF NOT EXISTS `role` (
-  `watrole` int(11) NOT NULL,
+  `watrole` int(1) NOT NULL,
   `nom` varchar(45) NOT NULL,
   PRIMARY KEY (`watrole`),
   UNIQUE KEY `nom_UNIQUE` (`nom`),
@@ -147,7 +149,7 @@ CREATE TABLE IF NOT EXISTS `team` (
   `nom` varchar(100) NOT NULL,
   `pseudo` varchar(45) NOT NULL,
   `mail` varchar(100) NOT NULL,
-  `role` int(11) NOT NULL,
+  `role` int(1) NOT NULL,
   PRIMARY KEY (`pseudo`),
   UNIQUE KEY `pseudo_UNIQUE` (`pseudo`),
   KEY `roles_idx` (`role`),
