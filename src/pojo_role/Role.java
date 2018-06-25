@@ -2,6 +2,15 @@ package pojo_role;
 
 public abstract class Role {
 	private boolean addUser, addArticle, modifTheme, createArticle, editArticle, modo;
+	private int _rolevalue;
+	
+	public int get_rolevalue() {
+		return _rolevalue;
+	}
+
+	protected final void set_rolevalue(int _rolevalue) {
+		this._rolevalue = _rolevalue;
+	}
 
 	public boolean isAddUser() {
 		return addUser;

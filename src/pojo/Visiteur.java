@@ -3,6 +3,10 @@ package pojo;
 public class Visiteur {
 	private String _nom, _mail;
 
+	public Visiteur(String string) {
+		this._nom = string;
+	}
+
 	public String get_nom() {
 		return _nom;
 	}

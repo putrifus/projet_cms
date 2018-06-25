@@ -3,14 +3,32 @@ package pojo;
 import java.time.LocalDateTime;
 
 public class Commentaire {
+	private int _id;
 	private String _contenu;
 	private LocalDateTime _date;
 	private boolean _mod;
 	private Visiteur _auteur;
 	private Article _article;
 	
-	public Commentaire() {
-		this._date = LocalDateTime.now();
+	
+
+	public Commentaire(int _id, String _contenu, LocalDateTime _date, boolean _mod, Visiteur _auteur,
+			Article _article) {
+		super();
+		this._id = _id;
+		this._contenu = _contenu;
+		this._date = _date;
+		this._mod = _mod;
+		this._auteur = _auteur;
+		this._article = _article;
+	}
+
+	public int get_id() {
+		return _id;
+	}
+
+	public void set_id(int _id) {
+		this._id = _id;
 	}
 
 	public String get_contenu() {
